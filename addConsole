@@ -1,0 +1,8 @@
+#!/bin/bash
+# https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/using-the-console
+
+echo "Add fbcon=map:10 fbcon=font:VGA8x8 in /boot/cmdline.txt after rootwait"
+echo "and reboot"
+read
+nano /boot/cmdline.txt
+

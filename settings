@@ -1,0 +1,2 @@
+#!/bin/bash
+nano /boot/config.txt

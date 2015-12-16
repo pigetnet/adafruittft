@@ -1,0 +1,4 @@
+#!/bin/bash
+/show/listecho "Reload touchscreen module"
+rmmod stmpe_ts
+modprobe stmpe_ts

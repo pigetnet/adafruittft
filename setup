@@ -1,0 +1,5 @@
+#!/bin/bash
+/system/install evtest
+#/system/install tslib
+/system/install libts-bin
+TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/touchscreen ts_calibrate

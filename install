@@ -1,0 +1,32 @@
+#!/bin/bash
+# Based on Adafruit tutorial (16/12/2015)
+# https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/software-installation
+
+curl -SLs https://apt.adafruit.com/add-pin | sudo bash
+apt-get install -y raspberrypi-bootloader
+
+. /string/getLine /boot/config.txt "dtoverlay=pitft28r"
+if [[ $NewString -eq -1 ]];then
+	/show/listecho "Configure /boot/config.txt" $OK
+	/system/autoBackup /boot/config.txt
+
+cat << EOF >> /boot/config.txt
+
+#Adafruit resistive TFT configuration
+[pi1]
+device_tree=bcm2708-rpi-b-plus.dtb
+[pi2]
+device_tree=bcm2709-rpi-2-b.dtb
+[all]
+dtparam=spi=on
+dtparam=i2c1=on
+dtparam=i2c_arm=on
+dtoverlay=pitft28r,rotate=90,speed=32000000,fps=20
+EOF
+
+fi
+
+#todo check if file exists
+echo 'SUBSYSTEM=="input", ATTRS{name}=="stmpe-ts", ENV{DEVNAME}=="*event*", SYMLINK+="input/touchscreen"' > /etc/udev/rules.d/95-stmpe.rules
+#rmmod stmpe_ts
+#modprobe stmpe_ts
